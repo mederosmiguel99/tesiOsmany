@@ -1,0 +1,42 @@
+{
+  "name": "elitecnologica-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
+    "build": "npx prisma migrate deploy && npx prisma generate && npm run start"
+  },
+  "author": "Elitecnológica",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^4.2.1",
+    "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.2",
+    "chalk": "^5.0.1",
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "cron": "^2.1.0",
+    "date-format-parse": "^0.2.7",
+    "dateformat": "^5.0.3",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.2",
+    "express-validator": "^6.14.0",
+    "html-table-to-json": "^1.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.4",
+    "mongoose": "^6.6.1",
+    "mongose": "*",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.7.7",
+    "nodemon": "^2.0.19",
+    "playwright": "^1.24.2",
+    "systeminformation": "^5.11.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.24.2",
+    "prisma": "^4.2.1"
+  }
+}

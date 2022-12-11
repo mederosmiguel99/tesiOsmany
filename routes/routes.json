@@ -1,0 +1,20 @@
+[
+    {
+        "path": "/users",
+        "middlewares": "",
+        "route": "../routes/users",
+        "type": "API"
+    },
+    {
+        "path": "/errors",
+        "middlewares": "",
+        "route": "../routes/errors",
+        "type": "API"
+    },
+    {
+        "path": "/auth",
+        "middlewares": "",
+        "route": "../routes/auth",
+        "type": "API"
+    }
+]

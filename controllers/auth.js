@@ -1,0 +1,77 @@
+const { response } = require('express')
+const { Users } = require('../models/users');
+const bcryptjs = require('bcryptjs');
+const { generarJWT } = require('../helpers/generateJWT');
+
+
+module.exports = {
+    async login(req, res = response) {
+        const { email, password } = req.body;
+        try {
+            // verificar si el correo existe
+            const user = await Users.findOne({ email })
+            if (!user) {
+                return res.status(400).json({
+                    msg: 'El usuario / password no son validos',
+                })
+            }
+            // verificar la contraseña
+            const ValidPassword = bcryptjs.compareSync(password, user.password);
+            if (!ValidPassword) {
+                res.status(400).json({
+                    msg: 'Usuario/ Password no son correctos',
+                })
+            }
+            //generar JWT
+            const token = await generarJWT(user._id)
+
+            res.json(
+                {
+                    user,
+                    token
+                }
+            )
+        } catch (error) {
+            return res.status(500).send({
+                msg: 'Internal server error'
+            })
+        }
+
+    },
+    async register(req, res = response) {
+        const { fullName, email, movil, password } = req.body;
+        try {
+            // verificar si el correo existe
+            let user = await Users.findOne({ email })
+            if (user) {
+                return res.status(400).json({
+                    msg: 'El usuario ya existe',
+                })
+            }
+            // generate password encripted
+            const salt = bcryptjs.genSaltSync();
+            user = await Users.create({
+                fullName,
+                email,
+                movil,
+                password: bcryptjs.hashSync(password, salt)
+            })
+
+            // generar JWT
+            const token = await generarJWT(user._id)
+
+            res.json(
+                {
+                    user,
+                    token
+                }
+            )
+        } catch (error) {
+            // res.status(500).send({
+            //     msg: 'Internal server error'
+            // })
+            throw new Error(error)
+        }
+
+    },
+}

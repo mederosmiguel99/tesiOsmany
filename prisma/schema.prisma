@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  id         BigInt     @id @default(autoincrement())
+  name       String
+  email      String
+  password   String
+  role       Roles?
+  createdAt  DateTime   @default(now())
+  isVerified Boolean    @default(false)
+  isDeleted  Boolean    @default(false)
+  UserRole   UserRole[]
+}
+
+model Flights {
+  id            BigInt   @id @default(autoincrement())
+  date          String
+  day           String
+  charter       String
+  flightNumber  String
+  from          String
+  to            String
+  checkIn       String
+  departure     String
+  arrival       String
+  gate          String
+  reservedSeats String
+  openSeats     String
+  status        String
+  adultPrice    Float?
+  childPrice    Float?
+  boysPrice     Float?
+  createdAt     DateTime @default(now())
+  isDeleted     Boolean  @default(false)
+}
+
+model Bookings {
+  id           BigInt   @id @default(autoincrement())
+  userId       BigInt
+  flightId     BigInt
+  userName     String
+  flightNumber String
+  createdAt    DateTime @default(now())
+  isDeleted    Boolean  @default(false)
+}
+
+model Roles {
+  id       BigInt     @id @default(autoincrement())
+  name     String
+  user     Users      @relation(fields: [userId], references: [id])
+  userId   BigInt     @unique
+  UserRole UserRole[]
+}
+
+model UserRole {
+  id     BigInt @id @default(autoincrement())
+  userId BigInt
+  rolId  BigInt
+  user   Users  @relation(fields: [userId], references: [id])
+  rol    Roles  @relation(fields: [rolId], references: [id])
+}
+
+model Payments {
+  id        BigInt   @id @default(autoincrement())
+  userId    BigInt
+  flightId  BigInt
+  createdAt DateTime @default(now())
+  isDeleted Boolean  @default(false)
+}
+
+model Suscribers {
+  id        BigInt   @id @default(autoincrement())
+  email     String
+  createdAt DateTime @default(now())
+  isDeleted Boolean  @default(false)
+}
+
+model Error {
+  id             BigInt    @id @default(autoincrement())
+  message        String?   @db.VarChar(2500)
+  stack          String?   @db.VarChar(5000)
+  url            String?
+  path           String?
+  error_status   Int?
+  request_body   String?   @db.VarChar(2500)
+  request_query  String?   @db.VarChar(2500)
+  request_params String?   @db.VarChar(2500)
+  time           DateTime? @db.DateTime()
+}
+
+model Locations {
+  id       BigInt  @id @default(autoincrement())
+  location String?
+  key      String?
+}
+
+model Cards {
+  id          BigInt    @id @default(autoincrement())
+  title       String?   @db.VarChar(2500)
+  description String?   @db.VarChar(2500)
+  date        DateTime? @default(now()) @db.DateTime()
+}
+
+model Contacts {
+  id              BigInt    @id @default(autoincrement())
+  ////Personal info
+  firstName       String     
+  lastName        String
+  passengerType   String
+  birthDate       DateTime
+  gender          String
+  email           String
+  phone           String
+  address         String
+  cyti            String
+  state           String
+  zip             String
+  country         String
+  nationality     String
+  ///Flight info
+  ofacCode        String
+  mothersMaiden   String
+  foreignAddress  String
+  foreignCity     String
+  foreignProvince String
+  foreignZip      String?
+  emergencyName   String?
+  emergencyPhone  String
+  cubanFirstName  String?
+  cubanLastName   String?
+  ////Primary documents
+  arrivalDoc      String
+  countryOfIssue  String 
+  arrivalDocNo    String
+  expDate         DateTime
+  ////Secundary documents
+  arrivalDocSec      String
+  countryOfIssueSec  String 
+  arrivalDocNoSec    String
+  expDateSec         DateTime
+}
