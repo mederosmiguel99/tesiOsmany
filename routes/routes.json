@@ -1,20 +1,38 @@
 [
     {
-        "path": "/users",
-        "middlewares": "",
-        "route": "../routes/users",
-        "type": "API"
-    },
-    {
-        "path": "/errors",
-        "middlewares": "",
-        "route": "../routes/errors",
-        "type": "API"
-    },
-    {
         "path": "/auth",
         "middlewares": "",
         "route": "../routes/auth",
+        "type": "API"
+    },
+    {
+        "path": "/egresos",
+        "middlewares": "",
+        "route": "../routes/egresos",
+        "type": "API"
+    },
+    {
+        "path": "/embarazadas",
+        "middlewares": "",
+        "route": "../routes/embarazada",
+        "type": "API"
+    },
+    {
+        "path": "/fallecidas",
+        "middlewares": "",
+        "route": "../routes/fallecidas",
+        "type": "API"
+    },
+    {
+        "path": "/hojaCargo",
+        "middlewares": "",
+        "route": "../routes/hojaCargo",
+        "type": "API"
+    },
+    {
+        "path": "/ingreso",
+        "middlewares": "",
+        "route": "../routes/ingreso",
         "type": "API"
     }
 ]

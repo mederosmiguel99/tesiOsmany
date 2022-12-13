@@ -4,7 +4,7 @@ require('colors');
 async function dbConnection() {
     console.log('Connecting to database'.blue)
     try {
-        await mongoose.connect('mongodb://localhost:27017/urber');
+        await mongoose.connect('mongodb://localhost:27017/tesisOsmany');
         console.log('Database is Online'.green)
     } catch (error) {
         console.clear();

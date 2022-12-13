@@ -56,12 +56,12 @@ const ingresoSchema = Schema({
     },
     idEmbarazada: {
         type: Schema.ObjectId,
-        ref: embarazadas,
+        ref: 'embarazadas',
         required: [false]
     },
     idUsuario: {
         type: Schema.ObjectId,
-        ref: users,
+        ref: 'users',
         required: [false]
     },
     
@@ -73,7 +73,7 @@ ingresoSchema.methods.toJSON = function () {
     return ingreso;
 }
 
-const IngresoModel = mongoose.model('solicitudes', ingresoSchema);
+const IngresoModel = mongoose.model('ingresos', ingresoSchema);
 
 module.exports = {
     IngresoModel

@@ -20,12 +20,12 @@ const egresoSchema = Schema({
     },
     idEmbarazada: {
         type: Schema.ObjectId,
-        ref: embarazadas,
+        ref: 'embarazadas',
         required: [false]
     },
     idUsuario: {
         type: Schema.ObjectId,
-        ref: users,
+        ref: 'users',
         required: [false]
     },
 
@@ -38,7 +38,7 @@ egresoSchema.methods.toJSON = function () {
     return egreso;
 }
 
-const EgresoModel = mongoose.model('solicitudes', egresoSchema);
+const EgresoModel = mongoose.model('egresos', egresoSchema);
 
 module.exports = {
     EgresoModel

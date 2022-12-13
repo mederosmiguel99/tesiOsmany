@@ -5,13 +5,14 @@ const { secureAsync } = require('../middlewares/ErrorValidator').getErrorInstanc
 const router = Router();
 router.post('/login',
     [
-        check('email', 'You must provide an user id').isEmail(),
+        check('registroMedico', 'You must provide an user id'),
         check('password', 'You must provide an user password')],
     secureAsync(login))
 
 router.post('/register',
     [
-        check('email', 'You must provide an user id').isEmail(),
-        check('password', 'You must provide an user password')],
+        check('registroMedico', 'You must provide an user id'),
+        check('password', 'You must provide an user password'),
+        check('name', 'You must provide a name')],
     secureAsync(register))
 module.exports = router;

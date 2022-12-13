@@ -6,14 +6,20 @@ const hojaDeCargoSchema = Schema({
         type: String,
         required: [false]
     },
-    idEmbarazada: {
+    codigo: {
         type: String,
         required: [false]
     },
-    idUsuario: {
-        type: String,
+    idEmbarazada: {
+        type: Schema.ObjectId,
+        ref: 'embarazadas',
         required: [false]
-    },   
+    },
+    idUsuario: {
+        type: Schema.ObjectId,
+        ref: 'users',
+        required: [false]
+    }, 
     
 });
 
@@ -23,7 +29,7 @@ hojaDeCargoSchema.methods.toJSON = function () {
     return hojaDeCargo;
 }
 
-const HojaDeCargoModel = mongoose.model('solicitudes', hojaDeCargoSchema);
+const HojaDeCargoModel = mongoose.model('hojaCargo', hojaDeCargoSchema);
 
 module.exports = {
     HojaDeCargoModel

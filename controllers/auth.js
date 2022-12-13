@@ -39,10 +39,10 @@ module.exports = {
 
     },
     async register(req, res = response) {
-        const { fullName, email, movil, password } = req.body;
+        const { name, registroMedico, password } = req.body;
         try {
             // verificar si el correo existe
-            let user = await Users.findOne({ email })
+            let user = await Users.findOne({ registroMedico })
             if (user) {
                 return res.status(400).json({
                     msg: 'El usuario ya existe',
@@ -51,9 +51,8 @@ module.exports = {
             // generate password encripted
             const salt = bcryptjs.genSaltSync();
             user = await Users.create({
-                fullName,
-                email,
-                movil,
+                name,
+                registroMedico,
                 password: bcryptjs.hashSync(password, salt)
             })
 

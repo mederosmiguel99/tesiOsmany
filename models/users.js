@@ -2,17 +2,13 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = Schema({
-    fullName: {
+    registroMedico: {
         type: String,
-        required: [true, 'Hay que especificar el nombre y y apellidos']
+        required: [true, 'Hay que especificar el registro medico']
     },
-    email: {
+    name: {
         type: String,
-        required: [true, 'El email es obligatorio']
-    },
-    movil: {
-        type: String,
-        required: [true, 'El numero del movil es obligatorio'],
+        required: [true, 'El nombre es obligatorio']
     },
     password: {
         type: String,

@@ -20,7 +20,7 @@ const fallecidaSchema = Schema({
     },
     idEmbarazada: {
         type: Schema.ObjectId,
-        ref: embarazadas,
+        ref: 'embarazadas',
         required: [false]
     },
     

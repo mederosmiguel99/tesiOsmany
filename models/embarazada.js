@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const egresoSchema = Schema({
+const embarazadasSchema = Schema({
 
     Carnet_Identidad: {
         type: String,
@@ -46,14 +46,14 @@ const egresoSchema = Schema({
 
 });
 
-egresoSchema.methods.toJSON = function () {
-    const { __v, password, _id, ...egreso } = this.toObject();
-    egreso.uid = _id
-    return egreso;
+embarazadasSchema.methods.toJSON = function () {
+    const { __v, password, _id, ...embarazadas } = this.toObject();
+    embarazadas.uid = _id
+    return embarazadas;
 }
 
-const EgresoModel = mongoose.model('solicitudes', egresoSchema);
+const EmbarazadasModel = mongoose.model('embarazadas', embarazadasSchema);
 
 module.exports = {
-    EgresoModel
+    EmbarazadasModel
 }
