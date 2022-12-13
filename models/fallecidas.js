@@ -23,7 +23,12 @@ const fallecidaSchema = Schema({
         ref: 'embarazadas',
         required: [false]
     },
-    
+    idUsuario: {
+        type: Schema.ObjectId,
+        ref: 'users',
+        required: [false]
+    },
+
 });
 
 fallecidaSchema.methods.toJSON = function () {
