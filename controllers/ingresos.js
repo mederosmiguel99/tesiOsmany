@@ -1,5 +1,5 @@
-const {IngresoModel} = require('../models/ingresos');
-const {EmbarazadasModel} = require('../models/embarazada');
+const { IngresoModel } = require('../models/ingresos');
+const { EmbarazadasModel } = require('../models/embarazada');
 
 module.exports = {
     get: async (req, res) => {
@@ -9,7 +9,7 @@ module.exports = {
     },
     create: async (req, res) => {
         const { fechaDeingreso, diagnostico, sala, cama, escolaridad, estadoConyugal, habitosToxicos, nombrePadre, padreFallecido,
-            nombreMadre, madreFallecida, nombreEmergencia, telefonoEmergencia, idEmbarazada, idUsuario } = req.body
+            nombreMadre, madreingreso, nombreEmergencia, telefonoEmergencia, idEmbarazada, idUsuario } = req.body
 
         const embarazada = await EmbarazadasModel.findById(idEmbarazada)
         if (embarazada) {
@@ -24,7 +24,7 @@ module.exports = {
                 nombrePadre,
                 padreFallecido,
                 nombreMadre,
-                madreFallecida,
+                madreingreso,
                 nombreEmergencia,
                 telefonoEmergencia,
                 idEmbarazada,
@@ -35,6 +35,17 @@ module.exports = {
         else {
             res.status(401).json({ err: "Embarazada no encontrada" })
         }
+    },
+    getPorFechaSalaCarnet: async (req, res) => {
+        const { fecha, sala, ci } = req.body
+        let ingresos = await IngresoModel.find({ fecha, sala }).populate('idEmbarazada')
 
+        for (const ingreso of ingresos) {
+            if (ingreso.idEmbarazada.Carnet_Identidad === ci) {
+                ingresos = ingreso
+            }
+        }
+
+        res.status(200).json(ingresos)
     }
 }
