@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const hojaDeCargoSchema = Schema({
     fecha: {
-        type: String,
+        type: Date,
         required: [false]
     },
     codigo: {
