@@ -37,8 +37,14 @@ module.exports = {
         }
     },
     getPorFechaSalaCarnet: async (req, res) => {
-        const { fecha, sala, ci } = req.body
+        const { fecha, sala } = req.body
         let ingresos = await IngresoModel.find({ fecha, sala }).populate('idEmbarazada')
+
+        res.status(200).json(ingresos)
+    },
+    getPorCarnet: async (req, res) => {
+        const { ci } = req.body
+        let ingresos = await IngresoModel.find().populate('idEmbarazada')
 
         for (const ingreso of ingresos) {
             if (ingreso.idEmbarazada.Carnet_Identidad === ci) {
