@@ -3,7 +3,7 @@ const moment = require('moment');
 
 module.exports = {
     get: async (req, res) => {
-        const egresos = await HojaDeCargoModel.find()
+        const egresos = await HojaDeCargoModel.find().populate('idEmbarazada')
 
         res.status(200).json(egresos)
     },

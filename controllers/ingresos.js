@@ -3,7 +3,7 @@ const { EmbarazadasModel } = require('../models/embarazada');
 
 module.exports = {
     get: async (req, res) => {
-        const egresos = await IngresoModel.find()
+        const egresos = await IngresoModel.find().populate('idEmbarazada')
 
         res.status(200).json(egresos)
     },

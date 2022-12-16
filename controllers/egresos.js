@@ -2,7 +2,7 @@ const {EgresoModel} = require('../models/egresos')
 
 module.exports = {
     get: async (req, res) => {
-        const egresos = await EgresoModel.find()
+        const egresos = await EgresoModel.find().populate('idEmbarazada')
         res.status(200).json(egresos)
     },
     create: async (req, res) => {
