@@ -30,12 +30,23 @@ module.exports = {
     let fallecidas = await FallecidasModel.find().populate('idEmbarazada')
 
     for (const fallecida of fallecidas) {
-      if(fallecida.idEmbarazada.Carnet_Identidad === ci) {
+      if (fallecida.idEmbarazada.Carnet_Identidad === ci) {
         fallecidas = fallecida
       }
     }
 
     res.status(200).json(fallecidas)
+  },
+  update: async (req, res) => {
+    const { id, fecha, causa, sala, cama } = req.body
+
+    let egreso = await FallecidasModel.findByIdAndUpdate(id, {
+      fecha,
+      causa,
+      sala,
+      cama
+    })
+    res.status(200).json(egreso)
   }
 }
 

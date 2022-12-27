@@ -32,5 +32,14 @@ module.exports = {
         }
 
         res.status(200).json(hojaCargos)
+    },
+    update: async (req, res) => {
+        const { id, fecha, codigo} = req.body
+        
+        let egreso = await HojaDeCargoModel.findByIdAndUpdate(id, {
+            fecha: moment(fecha, "YYYY/MM/DD"),
+            codigo,
+        })
+        res.status(200).json(egreso)
     }
 }

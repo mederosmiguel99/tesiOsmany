@@ -20,5 +20,22 @@ module.exports = {
             NoConsulotorio
         })
         res.status(200).json(embarazada)
+    },
+    update: async (req, res) => {
+        const { id, Carnet_Identidad, Nombre, Telefono, Provincia, Municipio, Direccion, Area_Salud, Codigo_ingreso, NoHC, NoConsulotorio} = req.body
+        
+        let egreso = await EmbarazadasModel.findByIdAndUpdate(id, {
+            Carnet_Identidad,
+            Nombre,
+            Telefono,
+            Provincia,
+            Municipio,
+            Direccion,
+            Area_Salud,
+            Codigo_ingreso,
+            NoHC,
+            NoConsulotorio
+        })
+        res.status(200).json(egreso)
     }
 }

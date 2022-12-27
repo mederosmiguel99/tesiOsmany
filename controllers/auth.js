@@ -6,10 +6,10 @@ const { generarJWT } = require('../helpers/generateJWT');
 
 module.exports = {
     async login(req, res = response) {
-        const { email, password } = req.body;
+        const { registroMedico, password } = req.body;
         try {
             // verificar si el correo existe
-            const user = await Users.findOne({ email })
+            const user = await Users.findOne({ registroMedico })
             if (!user) {
                 return res.status(400).json({
                     msg: 'El usuario / password no son validos',

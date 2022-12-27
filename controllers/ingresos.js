@@ -53,5 +53,26 @@ module.exports = {
         }
 
         res.status(200).json(ingresos)
+    },
+    update: async (req, res) => {
+        const { id, fechaDeingreso, diagnostico, sala, cama, escolaridad, estadoConyugal, habitosToxicos, nombrePadre, padreFallecido,
+            nombreMadre, madreingreso, nombreEmergencia, telefonoEmergencia} = req.body
+        
+        let egreso = await IngresoModel.findByIdAndUpdate(id, {
+            fechaDeingreso,
+                diagnostico,
+                sala,
+                cama,
+                escolaridad,
+                estadoConyugal,
+                habitosToxicos,
+                nombrePadre,
+                padreFallecido,
+                nombreMadre,
+                madreingreso,
+                nombreEmergencia,
+                telefonoEmergencia
+        })
+        res.status(200).json(egreso)
     }
 }

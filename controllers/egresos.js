@@ -1,4 +1,4 @@
-const {EgresoModel} = require('../models/egresos')
+const { EgresoModel } = require('../models/egresos')
 
 module.exports = {
     get: async (req, res) => {
@@ -33,7 +33,17 @@ module.exports = {
                 egresos = egreso
             }
         }
-
         res.status(200).json(egresos)
+    },
+    update: async (req, res) => {
+        const { id, fechaEgreso, motivo, sala, cama} = req.body
+        
+        let egreso = await EgresoModel.findByIdAndUpdate(id, {
+            fechaEgreso,
+            motivo,
+            sala,
+            cama,
+        })
+        res.status(200).json(egreso)
     }
 }
