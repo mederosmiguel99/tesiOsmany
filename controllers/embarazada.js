@@ -5,6 +5,11 @@ module.exports = {
         const embarazadas = await EmbarazadasModel.find()
         res.status(200).json(embarazadas)
     },
+    getByCI: async (req,res)=>{
+        const {Carnet_Identidad} = req.query
+        const embarazadas = await EmbarazadasModel.findOne({Carnet_Identidad})
+        res.status(200).json(embarazadas)
+    },
     create: async (req, res) => {
         const { Carnet_Identidad, Nombre, Telefono, Provincia, Municipio, Direccion, Area_Salud, Codigo_ingreso, NoHC, NoConsulotorio } = req.body
         const embarazada = await EmbarazadasModel.create({
