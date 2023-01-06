@@ -39,7 +39,7 @@ module.exports = {
 
     },
     async register(req, res = response) {
-        const { name, registroMedico, password } = req.body;
+        const { name, registroMedico, password, tipo } = req.body;
         try {
             // verificar si el correo existe
             let user = await Users.findOne({ registroMedico })
@@ -53,7 +53,8 @@ module.exports = {
             user = await Users.create({
                 name,
                 registroMedico,
-                password: bcryptjs.hashSync(password, salt)
+                password: bcryptjs.hashSync(password, salt),
+                tipo
             })
 
             // generar JWT
