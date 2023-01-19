@@ -8,15 +8,21 @@ module.exports = {
     create: async (req, res) => {
         const { fechaEgreso, motivo, sala, cama, idEmbarazada, idUsuario } = req.body
 
-        const egreso = await EgresoModel.create({
-            fechaEgreso,
-            motivo,
-            sala,
-            cama,
-            idEmbarazada,
-            idUsuario
-        })
-        res.status(200).json(egreso)
+        const egresoExte = await EgresoModel.find({ idEmbarazada })
+        if (!egresoExte) {
+            const egreso = await EgresoModel.create({
+                fechaEgreso,
+                motivo,
+                sala,
+                cama,
+                idEmbarazada,
+                idUsuario
+            })
+            res.status(200).json(egreso)
+        }else{
+            res.status(200).json({error:"Embarazada existente en egreso"})
+        }
+
     },
     getPorFechaSalaCarnet: async (req, res) => {
         const { fecha, sala } = req.body
@@ -36,8 +42,8 @@ module.exports = {
         res.status(200).json(egresos)
     },
     update: async (req, res) => {
-        const { id, fechaEgreso, motivo, sala, cama} = req.body
-        
+        const { id, fechaEgreso, motivo, sala, cama } = req.body
+
         let egreso = await EgresoModel.findByIdAndUpdate(id, {
             fechaEgreso,
             motivo,

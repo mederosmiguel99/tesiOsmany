@@ -10,14 +10,22 @@ module.exports = {
     create: async (req, res) => {
         const { fecha, codigo, idEmbarazada, idUsuario } = req.body
 
-        const hojaCargo = await HojaDeCargoModel.create({
-            fecha: moment(fecha, "YYYY/MM/DD"),
-            codigo,
-            idEmbarazada,
-            idUsuario
-        })
+        const hoja = await HojaDeCargoModel.find({ idEmbarazada })
 
-        res.status(200).json(hojaCargo)
+        if (!hoja) {
+            const hojaCargo = await HojaDeCargoModel.create({
+                fecha: moment(fecha, "YYYY/MM/DD"),
+                codigo,
+                idEmbarazada,
+                idUsuario
+            })
+
+            res.status(200).json(hojaCargo)
+        }else{
+            res.status(200).json({error:"Embarazada existente en hoja de cargo"})
+        }
+
+
     },
     getPorFechaSalaCarnet: async (req, res) => {
         let { fecha1, fecha2, ci } = req.body
@@ -34,8 +42,8 @@ module.exports = {
         res.status(200).json(hojaCargos)
     },
     update: async (req, res) => {
-        const { id, fecha, codigo} = req.body
-        
+        const { id, fecha, codigo } = req.body
+
         let egreso = await HojaDeCargoModel.findByIdAndUpdate(id, {
             fecha: moment(fecha, "YYYY/MM/DD"),
             codigo,

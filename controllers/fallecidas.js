@@ -9,15 +9,21 @@ module.exports = {
   create: async (req, res) => {
     const { fecha, causa, sala, cama, idEmbarazada, idUsuario } = req.body
 
-    const fallecida = await FallecidasModel.create({
-      fecha,
-      causa,
-      sala,
-      cama,
-      idEmbarazada,
-      idUsuario
-    })
-    res.status(200).json(fallecida)
+    const fallecidaExte = await FallecidasModel.find({ idEmbarazada })
+    if (!fallecidaExte) {
+      const fallecida = await FallecidasModel.create({
+        fecha,
+        causa,
+        sala,
+        cama,
+        idEmbarazada,
+        idUsuario
+      })
+      res.status(200).json(fallecida)
+    } else {
+      res.status(200).json({error:"Embarazada existente en fallecidas"})
+    }
+
   },
   getPorFechaSalaCarnet: async (req, res) => {
     const { fecha, sala } = req.body
