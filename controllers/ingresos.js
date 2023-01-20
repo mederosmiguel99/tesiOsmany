@@ -13,8 +13,6 @@ module.exports = {
 
         const embarazada = await EmbarazadasModel.findById(idEmbarazada)
         if (embarazada) {
-            const ingresoExte = await IngresoModel.find({ idEmbarazada })
-            if (!ingresoExte) {
                 const ingreso = await IngresoModel.create({
                     fechaDeingreso,
                     diagnostico,
@@ -33,9 +31,6 @@ module.exports = {
                     idUsuario
                 })
                 res.status(200).json(ingreso)
-            } else {
-                res.status(401).json({ err: "Embarazada no encontrada" })
-            }
         }
         else {
             res.status(401).json({ err: "Embarazada no encontrada" })

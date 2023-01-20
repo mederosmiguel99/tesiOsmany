@@ -1,4 +1,5 @@
 const { HojaDeCargoModel } = require('../models/hojaDeCargos');
+const { EmbarazadasModel } = require('../models/embarazada');
 const moment = require('moment');
 
 module.exports = {
@@ -10,7 +11,7 @@ module.exports = {
     create: async (req, res) => {
         const { fecha, codigo, idEmbarazada, idUsuario } = req.body
 
-        const hoja = await HojaDeCargoModel.find({ idEmbarazada })
+        const hoja = await EmbarazadasModel.findById(idEmbarazada)
 
         if (!hoja) {
             const hojaCargo = await HojaDeCargoModel.create({
@@ -21,8 +22,8 @@ module.exports = {
             })
 
             res.status(200).json(hojaCargo)
-        }else{
-            res.status(200).json({error:"Embarazada existente en hoja de cargo"})
+        } else {
+            res.status(200).json({ error: "Embarazada existente en hoja de cargo" })
         }
 
 
