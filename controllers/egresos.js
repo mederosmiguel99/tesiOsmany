@@ -1,5 +1,4 @@
 const { EgresoModel } = require('../models/egresos')
-const { EmbarazadasModel } = require('../models/embarazada');
 
 module.exports = {
     get: async (req, res) => {
@@ -9,7 +8,7 @@ module.exports = {
     create: async (req, res) => {
         const { fechaEgreso, motivo, sala, cama, idEmbarazada, idUsuario } = req.body
 
-        const egresoExte = await EmbarazadasModel.findById(idEmbarazada)
+        const egresoExte = await EgresoModel.findOne({ idEmbarazada })
         if (!egresoExte) {
             const egreso = await EgresoModel.create({
                 fechaEgreso,
@@ -20,8 +19,8 @@ module.exports = {
                 idUsuario
             })
             res.status(200).json(egreso)
-        } else {
-            res.status(200).json({ error: "Embarazada existente en egreso" })
+        }else{
+            res.status(200).json({error:"Embarazada existente en egreso"})
         }
 
     },

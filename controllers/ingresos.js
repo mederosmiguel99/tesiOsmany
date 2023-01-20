@@ -13,6 +13,8 @@ module.exports = {
 
         const embarazada = await EmbarazadasModel.findById(idEmbarazada)
         if (embarazada) {
+            const ingresoExte = await IngresoModel.findOne({idEmbarazada})
+            if(!ingresoExte){
                 const ingreso = await IngresoModel.create({
                     fechaDeingreso,
                     diagnostico,
@@ -31,6 +33,10 @@ module.exports = {
                     idUsuario
                 })
                 res.status(200).json(ingreso)
+            }else{
+                res.status(401).json({ err: "Embarazada encontrada en ingreso" })  
+            }
+
         }
         else {
             res.status(401).json({ err: "Embarazada no encontrada" })
@@ -56,22 +62,22 @@ module.exports = {
     },
     update: async (req, res) => {
         const { id, fechaDeingreso, diagnostico, sala, cama, escolaridad, estadoConyugal, habitosToxicos, nombrePadre, padreFallecido,
-            nombreMadre, madreingreso, nombreEmergencia, telefonoEmergencia } = req.body
-
+            nombreMadre, madreingreso, nombreEmergencia, telefonoEmergencia} = req.body
+        
         let egreso = await IngresoModel.findByIdAndUpdate(id, {
             fechaDeingreso,
-            diagnostico,
-            sala,
-            cama,
-            escolaridad,
-            estadoConyugal,
-            habitosToxicos,
-            nombrePadre,
-            padreFallecido,
-            nombreMadre,
-            madreingreso,
-            nombreEmergencia,
-            telefonoEmergencia
+                diagnostico,
+                sala,
+                cama,
+                escolaridad,
+                estadoConyugal,
+                habitosToxicos,
+                nombrePadre,
+                padreFallecido,
+                nombreMadre,
+                madreingreso,
+                nombreEmergencia,
+                telefonoEmergencia
         })
         res.status(200).json(egreso)
     }

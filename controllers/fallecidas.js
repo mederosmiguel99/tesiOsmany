@@ -1,5 +1,4 @@
 const { FallecidasModel } = require('../models/fallecidas');
-const { EmbarazadasModel } = require('../models/embarazada');
 
 module.exports = {
   get: async (req, res) => {
@@ -10,7 +9,7 @@ module.exports = {
   create: async (req, res) => {
     const { fecha, causa, sala, cama, idEmbarazada, idUsuario } = req.body
 
-    const fallecidaExte = await EmbarazadasModel.findById(idEmbarazada)
+    const fallecidaExte = await FallecidasModel.findOne({ idEmbarazada })
     if (!fallecidaExte) {
       const fallecida = await FallecidasModel.create({
         fecha,
@@ -22,7 +21,7 @@ module.exports = {
       })
       res.status(200).json(fallecida)
     } else {
-      res.status(200).json({ error: "Embarazada existente en fallecidas" })
+      res.status(200).json({error:"Embarazada existente en fallecidas"})
     }
 
   },
